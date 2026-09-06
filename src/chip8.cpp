@@ -213,7 +213,7 @@ void Chip8::execute(uint16_t instruction)
             break;
         case 0xB:
             // BNNN: Jump with offset (Classic)
-            pc = nnn + V[0];
+            pc = nnn + V[x];
             break;
         case 0xC:
             // CXNN: Random number
