@@ -40,4 +40,5 @@ private:
     std::array<bool, DISPLAY_SIZE> gfx{};
     std::array <bool, 16> keys{};
     std::mt19937 randomGen;
+    int waitKey = -1;
 };

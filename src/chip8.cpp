@@ -259,11 +259,11 @@ void Chip8::execute(uint16_t instruction)
             if (nn == 0x9E)
             {
                 // EX9E: Skip if key
-                pc += (keys[KEY_HEX_MAP.at(x)]) ? 2 : 0;
+                pc += (keys[KEY_HEX_MAP.at(V[x])]) ? 2 : 0;
             } else if (nn == 0xA1)
             {
                 // EXA1: Skip if not key
-                pc += (!keys[KEY_HEX_MAP.at(x)]) ? 2 : 0;
+                pc += (!keys[KEY_HEX_MAP.at(V[x])]) ? 2 : 0;
             }
             break;
         case 0xF:
@@ -292,30 +292,37 @@ void Chip8::execute(uint16_t instruction)
                 // FX0A: Get key. Stops execution until a key is pressed
                 case 0x0A:
                 {
-                    int pressedIndex = -1;
-                    for (int i = 0; i<keys.size(); ++i)
+                    if (waitKey == -1)
                     {
-                        if (keys[i])
+                        for (int i = 0; i < keys.size(); ++i)
                         {
-                            pressedIndex = i;
-                            break;
+                            if (keys[i])
+                            {
+                                waitKey = i;
+                                break;
+                            }
+                        }
+                        pc -= 2;
+                    }  else
+                    {
+                        bool pressed = keys[waitKey];
+                        if (!pressed)
+                        {
+                            V[x] = KEY_HEX_MAP_REVERSE.at(static_cast<uint8_t>(waitKey));
+                            waitKey = -1;
+                        } else
+                        {
+                            pc -= 2;
                         }
                     }
-            
-                    if (pressedIndex <= -1)
-                    {
-                        pc -= 2;
-                    } else
-                    {
-                        V[x] = KEY_HEX_MAP_REVERSE.at(static_cast<uint8_t>(pressedIndex));
-                    }
+
                     break;    
                 }
                 // FX29: Font character. Point index to the address of a character (stored in VX)
                 case 0x29:
                     I = FONT_START_ADDR + V[x];
                     break;
-                // FX33: Binary-coded decimal conversioo
+                // FX33: Binary-coded decimal conversion
                 case 0x33:
                 {
                     uint8_t num = V[x];
