@@ -14,6 +14,11 @@ Chip8::Chip8()
     }
 }
 
+void Chip8::setKey(uint8_t key, bool pressed)
+{
+    keys[key] = pressed;
+}
+
 void Chip8::printMemory(uint16_t start, uint16_t end)
 {
     for (int i = start; i <= end; ++i)

@@ -1,7 +1,49 @@
 ﻿#pragma once
 
 #include <array>
-#include <cstdint>
+#include <map>
+#include <SDL_keycode.h>
+
+const std::map<SDL_Keycode, uint8_t> KEY_MAP = {
+    { SDLK_1, 0 },
+    { SDLK_2, 1 },
+    { SDLK_3, 2 },
+    { SDLK_4, 3 },
+    { SDLK_q, 4 },
+    { SDLK_w, 5 },
+    { SDLK_e, 6 },
+    { SDLK_r, 7 },
+    { SDLK_a, 8 },
+    { SDLK_s, 9 },
+    { SDLK_d, 10 },
+    { SDLK_f, 11 },
+    { SDLK_z, 12 },
+    { SDLK_x, 13 },
+    { SDLK_c, 14 },
+    { SDLK_v, 15 }
+};
+
+const std::map<SDL_Keycode, std::string> KEY_LABEL_MAP = {
+    { SDLK_1, "1" },
+    { SDLK_2, "2" },
+    { SDLK_3, "3" },
+    { SDLK_4, "C" },
+    { SDLK_q, "4" },
+    { SDLK_w, "5" },
+    { SDLK_e, "6" },
+    { SDLK_r, "D" },
+    { SDLK_a, "7" },
+    { SDLK_s, "8" },
+    { SDLK_d, "9" },
+    { SDLK_f, "E" },
+    { SDLK_z, "A" },
+    { SDLK_x, "0" },
+    { SDLK_c, "B" },
+    { SDLK_v, "F" }
+};
+
+inline constexpr size_t DISPLAY_SIZE = 0x800; // 64*32
+inline constexpr size_t MEMORY_SIZE = 4096;
 
 inline constexpr uint16_t FONT_START_ADDR = 0x050;
 inline constexpr uint16_t FONT_BLOCK_SIZE = 0x050;

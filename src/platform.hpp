@@ -7,6 +7,7 @@ class Chip8Platform
 public:
     Chip8Platform();
     
+    int runApp();
     void printDiagnostics() const;
     
 private:
