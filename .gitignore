@@ -1,0 +1,38 @@
+# Build output
+build/
+cmake-build-*/
+out/
+
+# CMake artifacts
+CMakeCache.txt
+CMakeFiles/
+CMakeUserPresets.json
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+*.cmake.stamp
+
+# Compiled objects and binaries
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.pdb
+*.ilk
+
+# JetBrains
+.idea/
+*.iml
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
