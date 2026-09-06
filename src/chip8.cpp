@@ -168,24 +168,36 @@ void Chip8::execute(uint16_t instruction)
                 }
             // 8XY5: Set VX to VX - VY
             case 0x5:
-                V[0xF] = (V[x] >= V[y]) ? 1 : 0; 
+            {
+                uint8_t val = (V[x] >= V[y]) ? 1 : 0; 
                 V[x] = V[x] - V[y];
+                V[0xF] = val;
                 break;
+            }
             // 8XY6: Shift right (Modern)
             case 0x6:
-                V[0xF] = V[x] & 1;
+            {
+                uint8_t val = V[x] & 1;
                 V[x] = V[x] >> 1;
+                V[0xF] = val;    
                 break;
+            }
             // 8XY7: Set VX to VY - VX
             case 0x7:
-                V[0xF] = (V[y] >= V[x]) ? 1 : 0; 
+            {
+                uint8_t val = (V[y] >= V[x]) ? 1 : 0; 
                 V[x] = V[y] - V[x];
+                V[0xF] = val;
                 break;
+            }
             // 8XYE: Shift left (Modern)
             case 0xE:
-                V[0xF] = (V[x] >> 7) & 1;
+            {
+                uint8_t val = (V[x] >> 7) & 1;
                 V[x] = static_cast<uint8_t>(V[x] << 1);
+                V[0xF] = val;    
                 break;
+            }
             default:
                 break;
             }
