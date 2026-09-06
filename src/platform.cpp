@@ -3,6 +3,8 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <cstdio>
+
+#include "beeper.hpp"
 #include "chip8.hpp"
 #include "constants.hpp"
 
@@ -13,7 +15,7 @@ Chip8Platform::Chip8Platform()
 
 int Chip8Platform::runApp(std::string romPath)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         std::fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
         return 1;
     }
@@ -34,6 +36,15 @@ int Chip8Platform::runApp(std::string romPath)
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         std::fprintf(stderr, "CreateRenderer failed: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+    
+    Beeper beeper;
+    if (!beeper.init())
+    {
+        std::fprintf(stderr, "Beeper init failed");
         SDL_DestroyWindow(window);
         SDL_Quit();
         return 1;
@@ -88,6 +99,15 @@ int Chip8Platform::runApp(std::string romPath)
         //Update emulator logic
         emulator->drawFlag = false;
         emulator->tickTimers();
+        
+        if (emulator->isBeeping())
+        {
+            beeper.play();
+        } else
+        {
+            beeper.stop();
+        }
+        
         for (int i = 0; i < instructionsPerFrame; ++i)
         {
             emulator->cycle();

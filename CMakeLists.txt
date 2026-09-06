@@ -13,6 +13,8 @@ add_executable(chip8
     src/chip8.hpp
     src/platform.hpp
         src/constants.hpp
+        src/beeper.hpp
+        src/beeper.cpp
 )
 
 add_custom_command(TARGET chip8 POST_BUILD

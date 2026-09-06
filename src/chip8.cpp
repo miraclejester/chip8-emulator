@@ -61,6 +61,11 @@ void Chip8::tickTimers()
     soundTimer -= (soundTimer > 0) ? 1 : 0;
 }
 
+bool Chip8::isBeeping() const
+{
+    return soundTimer > 0;
+}
+
 void Chip8::setKey(uint8_t key, bool pressed)
 {
     keys[key] = pressed;

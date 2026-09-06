@@ -2,6 +2,7 @@
 
 #include <array>
 #include <map>
+#include <string>
 #include <SDL_keycode.h>
 
 const std::map<SDL_Keycode, uint8_t> KEY_MAP = {
@@ -85,6 +86,9 @@ inline constexpr size_t DISPLAY_WIDTH = 64;
 inline constexpr size_t DISPLAY_HEIGHT = 32;
 inline constexpr size_t DISPLAY_SIZE = DISPLAY_WIDTH*DISPLAY_HEIGHT; // 64*32
 inline constexpr size_t MEMORY_SIZE = 4096;
+
+inline constexpr int BEEP_FREQUENCY = 440;
+inline constexpr int16_t BEEP_AMPLITUDE = 3000;
 
 inline constexpr uint16_t FONT_START_ADDR = 0x050;
 inline constexpr uint16_t FONT_BLOCK_SIZE = 0x050;

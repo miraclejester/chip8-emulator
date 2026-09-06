@@ -15,6 +15,7 @@ public:
     bool loadRom(const std::string& path);
     void cycle(); // fetch, decode, execute
     void tickTimers(); // Call at 60hz
+    bool isBeeping() const;
     
     const std::array<bool, DISPLAY_SIZE>& display() const;
     void setKey(uint8_t key, bool pressed);
