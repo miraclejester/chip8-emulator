@@ -8,5 +8,9 @@ int main(int argc, char* argv[])
 	Chip8Platform* platform = new Chip8Platform();
 	platform->printDiagnostics();
 	
-    return platform->runApp();
+	char* base = SDL_GetBasePath();
+	const std::string rom = std::string(base ? base : "") + "roms/ibm_logo.ch8";
+	SDL_free(base);
+	
+    return platform->runApp(rom);
 }

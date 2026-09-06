@@ -15,6 +15,11 @@ add_executable(chip8
         src/constants.hpp
 )
 
+add_custom_command(TARGET chip8 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/roms $<TARGET_FILE_DIR:chip8>/roms
+)
+
 if(TARGET SDL2::SDL2main)
     target_link_libraries(chip8 PRIVATE SDL2::SDL2main)
 endif()

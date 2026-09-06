@@ -42,7 +42,10 @@ const std::map<SDL_Keycode, std::string> KEY_LABEL_MAP = {
     { SDLK_v, "F" }
 };
 
-inline constexpr size_t DISPLAY_SIZE = 0x800; // 64*32
+inline constexpr int DISPLAY_SCALE = 20;
+inline constexpr size_t DISPLAY_WIDTH = 64;
+inline constexpr size_t DISPLAY_HEIGHT = 32;
+inline constexpr size_t DISPLAY_SIZE = DISPLAY_WIDTH*DISPLAY_HEIGHT; // 64*32
 inline constexpr size_t MEMORY_SIZE = 4096;
 
 inline constexpr uint16_t FONT_START_ADDR = 0x050;

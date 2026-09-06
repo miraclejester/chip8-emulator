@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Chip8;
 
 class Chip8Platform
@@ -7,7 +9,7 @@ class Chip8Platform
 public:
     Chip8Platform();
     
-    int runApp();
+    int runApp(std::string romPath);
     void printDiagnostics() const;
     
 private:

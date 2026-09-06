@@ -11,7 +11,7 @@ Chip8Platform::Chip8Platform()
     emulator = new Chip8();
 }
 
-int Chip8Platform::runApp()
+int Chip8Platform::runApp(std::string romPath)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
@@ -21,7 +21,7 @@ int Chip8Platform::runApp()
     SDL_Window* window = SDL_CreateWindow(
         "Chip-8",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        64 * 20, 32 * 20,
+        64 * DISPLAY_SCALE, 32 * DISPLAY_SCALE,
         SDL_WINDOW_SHOWN
     );
 
@@ -39,7 +39,17 @@ int Chip8Platform::runApp()
         return 1;
     }
     
+    SDL_RenderSetLogicalSize(renderer, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    
+    if (!emulator->loadRom(romPath))
+    {
+        return 1;
+    }
+    
+    
     const int FPS = 60;
+    const int instructionsPerSecond = 700;
+    const int instructionsPerFrame = instructionsPerSecond / FPS;
     const int frameDelay = 1000 / FPS;
     uint32_t frameStart;
     int frameTime;
@@ -76,10 +86,26 @@ int Chip8Platform::runApp()
         }
         
         //Update emulator logic
+        emulator->drawFlag = false;
+        for (int i = 0; i < instructionsPerFrame; ++i)
+        {
+            emulator->cycle();
+        }
         
         //Render graphics
-        SDL_SetRenderDrawColor(renderer, 20, 20, 30, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+        
+        const auto& gfx = emulator->display();
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        for (size_t y = 0; y < DISPLAY_HEIGHT; ++y) {
+            for (size_t x = 0; x < DISPLAY_WIDTH; ++x) {
+                if (gfx[y * DISPLAY_WIDTH + x]) {
+                    SDL_RenderDrawPoint(renderer, x, y);
+                }
+            }
+        }
+        
         SDL_RenderPresent(renderer);
         
         //Force to 60hz
