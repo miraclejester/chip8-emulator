@@ -1,6 +1,13 @@
-﻿class Chip8
+﻿#pragma once
+#include <string>
+#include <array>
+#include <cstdint>
+
+class Chip8
 {
 public:
+    Chip8();
+    
     void loadRom(const std::string& path);
     void cycle(); // fetch, decode, execute
     void tickTimers(); // Call at 60hz
@@ -8,6 +15,9 @@ public:
     const std::array<uint8_t, 64*32>& display() const;
     void setKey(uint8_t key, bool pressed);
     bool drawFlag = false;
+    
+    //Debug methods
+    void printMemory(uint16_t start = 0x0, uint16_t end = 0xFFF);
     
 private:
     std::array<uint8_t, 4096> memory{};

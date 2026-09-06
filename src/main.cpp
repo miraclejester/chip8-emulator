@@ -1,8 +1,12 @@
 ﻿#include <SDL2/SDL.h>
 #include <cstdio>
+#include "platform.hpp"
 
 int main(int argc, char* argv[])
 {
+	Chip8Platform* platform = new Chip8Platform();
+	platform->printDiagnostics();
+	
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
 		return 1;
