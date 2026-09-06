@@ -23,6 +23,44 @@ const std::map<SDL_Keycode, uint8_t> KEY_MAP = {
     { SDLK_v, 15 }
 };
 
+const std::map<uint8_t, uint8_t> KEY_HEX_MAP = {
+    { 1, 0 },
+    { 2, 1 },
+    { 3, 2 },
+    { 0xC, 3 },
+    { 4, 4 },
+    { 5, 5 },
+    { 6, 6 },
+    { 0xD, 7 },
+    { 7, 8 },
+    { 8, 9 },
+    { 9, 10 },
+    { 0xE, 11 },
+    { 0xA, 12 },
+    { 0, 13 },
+    { 0xB, 14 },
+    { 0xF, 15 }
+};
+
+const std::map<uint8_t, uint8_t> KEY_HEX_MAP_REVERSE = {
+    { 0, 1 },
+    { 1, 2 },
+    { 2, 3 },
+    { 3, 0xC },
+    { 4, 4 },
+    { 5, 5 },
+    { 6, 6 },
+    { 7, 0xD },
+    { 8, 7 },
+    { 9, 8 },
+    { 10, 9 },
+    { 11, 0xE },
+    { 12, 0xA },
+    { 13, 0 },
+    { 14, 0xB },
+    { 15, 0xF }
+};
+
 const std::map<SDL_Keycode, std::string> KEY_LABEL_MAP = {
     { SDLK_1, "1" },
     { SDLK_2, "2" },

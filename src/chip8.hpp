@@ -2,6 +2,7 @@
 #include <string>
 #include <array>
 #include <cstdint>
+#include <random>
 #include <stack>
 
 #include "constants.hpp"
@@ -27,6 +28,7 @@ private:
     void execute(uint16_t instruction);
     bool isPixelOn(uint8_t x, uint8_t y);
     void setPixel(uint8_t x, uint8_t y, bool v);
+    uint8_t getRandom();
     
     std::array<uint8_t, MEMORY_SIZE> memory{};
     std::array<uint8_t, 16> V{}; // registers V0 .. VF
@@ -37,4 +39,5 @@ private:
     uint8_t delayTimer = 0, soundTimer = 0;
     std::array<bool, DISPLAY_SIZE> gfx{};
     std::array <bool, 16> keys{};
+    std::mt19937 randomGen;
 };

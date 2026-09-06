@@ -87,6 +87,7 @@ int Chip8Platform::runApp(std::string romPath)
         
         //Update emulator logic
         emulator->drawFlag = false;
+        emulator->tickTimers();
         for (int i = 0; i < instructionsPerFrame; ++i)
         {
             emulator->cycle();
