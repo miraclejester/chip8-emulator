@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHIP-8 Emulator</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>CHIP-8 Emulator</h1>
+        <p class="sub">Written in C++ with SDL2, compiled to WebAssembly.</p>
+      </header>
+
+      <div class="screen">
+        <canvas id="canvas" width="640" height="320" tabindex="-1"></canvas>
+        <button id="start" class="overlay">Click to start</button>
+      </div>
+
+      <section class="controls">
+        <label>
+          ROM
+          <select id="rom-select"></select>
+        </label>
+        <label class="file">
+          Load your own
+          <input id="rom-file" type="file" accept=".ch8,.rom,application/octet-stream" />
+        </label>
+      </section>
+
+      <p id="status" class="status" role="status"></p>
+
+      <section class="help">
+        <h2>Controls</h2>
+        <p>
+          CHIP-8 uses a 16-key hex keypad. It maps onto the left of your keyboard:
+        </p>
+        <div class="keypads">
+          <table>
+            <caption>CHIP-8 keypad</caption>
+            <tbody>
+              <tr><td>1</td><td>2</td><td>3</td><td>C</td></tr>
+              <tr><td>4</td><td>5</td><td>6</td><td>D</td></tr>
+              <tr><td>7</td><td>8</td><td>9</td><td>E</td></tr>
+              <tr><td>A</td><td>0</td><td>B</td><td>F</td></tr>
+            </tbody>
+          </table>
+          <div class="arrow" aria-hidden="true">&rarr;</div>
+          <table>
+            <caption>Your keyboard</caption>
+            <tbody>
+              <tr><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+              <tr><td>Q</td><td>W</td><td>E</td><td>R</td></tr>
+              <tr><td>A</td><td>S</td><td>D</td><td>F</td></tr>
+              <tr><td>Z</td><td>X</td><td>C</td><td>V</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          Click the screen before typing so it has keyboard focus. Each ROM uses its own
+          subset of these keys.
+        </p>
+
+        <h3>Brix &amp; Breakout</h3>
+        <p>
+          Both games move the paddle with CHIP-8 keys <kbd>4</kbd> and <kbd>6</kbd>, which
+          sit on <kbd>Q</kbd> to go left and <kbd>E</kbd> to go right. Hold a key to keep
+          moving; the ball launches on its own.
+        </p>
+      </section>
+
+      <section class="credits">
+        <h2>ROM credits</h2>
+        <p>The emulator is my own work. The bundled ROMs are not:</p>
+        <ul>
+          <li>
+            The CHIP-8 logo, the IBM logo and every <em>Test:</em> ROM come from
+            <a href="https://github.com/Timendus/chip8-test-suite" target="_blank" rel="noopener noreferrer">Timendus/chip8-test-suite</a>,
+            which is licensed under the
+            <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener noreferrer">GNU GPL v3</a>.
+            The full licence text ships with this project as
+            <code>roms/LICENSE-chip8-test-suite</code>.
+          </li>
+          <li>
+            Brix is commonly attributed to Andreas Gustafsson (1990) and Breakout to
+            Carmelo Cortez (1979); both are early CHIP-8 games that predate the
+            repositories distributing them today. I obtained these two and the particle
+            demo from
+            <a href="https://github.com/loktar00/chip8" target="_blank" rel="noopener noreferrer">loktar00/chip8</a>,
+            which states no licence of its own.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

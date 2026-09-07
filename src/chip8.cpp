@@ -8,39 +8,63 @@
 
 Chip8::Chip8()
 {
+    std::random_device rd;
+    randomGen = std::mt19937(rd());
+    reset();
+}
+
+void Chip8::reset()
+{
+    memory.fill(0);
+    V.fill(0);
+    gfx.fill(false);
+    keys.fill(false);
+    stack = std::stack<uint16_t>{};
+
+    I = 0;
+    pc = 0x200;
+    sp = 0;
+    delayTimer = 0;
+    soundTimer = 0;
+    waitKey = -1;
+    drawFlag = false;
+
     // Write default fonts to memory
     int index = FONT_START_ADDR;
     for (const uint8_t& byte : DEFAULT_FONT) {
         memory[index] = byte;
         index += 0x1;
     }
-    
-    std::random_device rd;
-    randomGen = std::mt19937(rd());
 }
 
 bool Chip8::loadRom(const std::string& path)
 {
     std::ifstream file(path, std::ios::binary | std::ios::ate);
-    pc = 0x200;
-    
+
     if (!file.is_open())
     {
         std::cerr << "Failed to open file: " << path << "\n";
         return false;
     }
-    
+
     std::streamsize size = file.tellg();
     file.seekg(0, std::ios::beg);
-    
+
+    // Clear previous state so loading a second ROM starts from a clean machine.
+    reset();
+
     std::vector<uint8_t> buffer(size);
-    if (file.read(reinterpret_cast<char*>(buffer.data()), size)) {
-        uint16_t i = pc;
-        for (uint8_t byte : buffer)
-        {
-            memory[i] = byte;
-            i += 1;
-        }
+    if (!file.read(reinterpret_cast<char*>(buffer.data()), size))
+    {
+        std::cerr << "Failed to read file: " << path << "\n";
+        return false;
+    }
+
+    uint16_t i = pc;
+    for (uint8_t byte : buffer)
+    {
+        memory[i] = byte;
+        i += 1;
     }
     return true;
 }
