@@ -241,7 +241,7 @@ void Chip8::execute(uint16_t instruction)
             I = nnn;
             break;
         case 0xB:
-            // BNNN: Jump with offset (Classic)
+            // BNNN: Jump with offset (Modern)
             pc = nnn + V[x];
             break;
         case 0xC:
